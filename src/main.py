@@ -64,28 +64,23 @@ class LogTransformer(BaseEstimator, TransformerMixin):
         return np.log1p(X) 
 
 
-
-
-
-
 @app.get('/')
 def MySepssisApi():
     return {'Message': 'Welcome to my Sepssis Prediction API'}
 
 
 
-
-#Gradient_Boosting_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/GB_pipeline.joblib')
-#Logiistic_Regressor_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/LogReg_pipeline.joblib')
-#Naive_Bayes_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/NB_pipeline.joblib')
-XGBoost_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/XGB_pipeline.joblib')
+GB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/GB_pipeline.joblib')
+LogReg_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/LogReg_pipeline.joblib')
+NB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/NB_pipeline.joblib')
+XGB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/XGB_pipeline.joblib')
 encoder = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/encoder.joblib')
 
 @app.post('/XGBoost_prediction')
 def predict_sepssis(data: sepssisfeatures):
     
     df = pd.DataFrame([data.model_dump()])
-    prediction = XGBoost_pipeline.predict(df)
+    prediction = XGB_pipeline.predict(df)
     return {'prediction': prediction}
 
 
