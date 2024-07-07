@@ -1,10 +1,7 @@
 /p5env
 /__pycache__
-<<<<<<< HEAD
-/
-=======
 
 venv/
 /__pycache__
 
->>>>>>> 0d5b1aaedf6b5cd941aaccfb740c05308308fdaa
+src\__pycache__

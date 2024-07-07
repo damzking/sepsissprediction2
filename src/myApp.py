@@ -1,3 +1,39 @@
+import pandas as pd
+import numpy as np
+from sklearn.base import BaseEstimator, TransformerMixin
+
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import ( 
+    LabelEncoder, 
+    RobustScaler, 
+)
+
+from imblearn.pipeline import Pipeline as ImbPipeline
+from imblearn.over_sampling import SMOTE
+from sklearn.compose import ColumnTransformer
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import ( 
+    GradientBoostingClassifier
+)
+
+
+from sklearn.naive_bayes import GaussianNB
+from xgboost import XGBClassifier
+from sklearn.linear_model import HuberRegressor
+
+from sklearn.metrics import (
+    accuracy_score, 
+    precision_score, 
+    recall_score, 
+    f1_score, 
+    roc_curve,
+    auc, 
+    confusion_matrix, 
+    classification_report
+)
+
 from fastapi import FastAPI
 import joblib
 from pydantic import BaseModel
@@ -19,6 +55,13 @@ class sepssisfeatures(BaseModel):
     Sepssis: object
     
 
+# Logarithmic Transformer
+class LogTransformer(BaseEstimator, TransformerMixin):
+    def fit(self, X, y=None):
+        return self
+    
+    def transform(self, X):
+        return np.log1p(X) 
 
 
 
@@ -32,16 +75,16 @@ def MySepssisApi():
 
 
 
-Gradient_Boosting_pipeline = joblib.load('../models/GB_pipeline.joblib')
-Logiistic_Regressor_pipeline = joblib.load('../models/LogReg_pipeline.joblib')
-Naive_Bayes_pipeline = joblib.load('../models/NB_pipeline.joblib')
-XGBoost_pipeline = joblib.load('../models/XGB_pipeline.joblib')
-encoder = joblib.load('../models/encoder.joblib')
+#Gradient_Boosting_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/GB_pipeline.joblib')
+#Logiistic_Regressor_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/LogReg_pipeline.joblib')
+#Naive_Bayes_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/NB_pipeline.joblib')
+XGBoost_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/XGB_pipeline.joblib')
+encoder = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/encoder.joblib')
 
 @app.post('/XGBoost_prediction')
-def predict_sepssis(data:sepssisfeatures):
+def predict_sepssis(data: sepssisfeatures):
     
-    df = PD.DataFrames(Data.model_dump())
+    df = pd.DataFrame([data.model_dump()])
     prediction = XGBoost_pipeline.predict(df)
     return {'prediction': prediction}
 
