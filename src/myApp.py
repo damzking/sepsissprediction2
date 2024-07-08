@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.base import BaseEstimator, TransformerMixin
+#from sklearn.base import BaseEstimator, TransformerMixin
 
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
@@ -38,7 +38,7 @@ from fastapi import FastAPI
 import joblib
 from pydantic import BaseModel
 
-from custom_transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
+from dev.Custom_Transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
 
 
 app = FastAPI()
@@ -56,8 +56,6 @@ class sepssisfeatures(BaseModel):
     Insurance: int
     Sepssis: object
     
-
-
 
 
 @app.get('/')
