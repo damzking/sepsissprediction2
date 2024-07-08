@@ -38,7 +38,7 @@ from fastapi import FastAPI
 import joblib
 from pydantic import BaseModel
 
-from custom_transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
+#from custom_transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
 
 
 app = FastAPI()
@@ -58,12 +58,12 @@ class sepssisfeatures(BaseModel):
     
 
 # Logarithmic Transformer
-class LogTransformer(BaseEstimator, TransformerMixin):
-    def fit(self, X, y=None):
-        return self
+#class LogTransformer(BaseEstimator, TransformerMixin):
+#    def fit(self, X, y=None):
+#        return self
     
-    def transform(self, X):
-        return np.log1p(X) 
+#    def transform(self, X):
+#        return np.log1p(X) 
 
 
 @app.get('/')
@@ -74,7 +74,7 @@ def MySepssisApi():
 
 GB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/GB_pipeline.joblib')
 LogReg_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/LogReg_pipeline.joblib')
-NB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/NB_pipeline.joblib')
+RF_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/RF_pipeline.joblib')
 XGB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/XGB_pipeline.joblib')
 encoder = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/encoder.joblib')
 
