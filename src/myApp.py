@@ -53,7 +53,8 @@ class sepssisfeatures(BaseModel):
     M11: float
     BD2: float
     Age: int
-    Insurance: int
+    Insurance: category
+    
         
     
 
@@ -71,11 +72,23 @@ XGB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learni
 encoder = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/encoder.joblib')
 
 @app.post('/XGBoost_prediction')
-def predict_sepssis(data: sepssisfeatures):
+def XGB_predict(data: sepssisfeatures):
     
     df = pd.DataFrame([data.model_dump()])
     prediction = XGB_pipeline.predict(df)
     return {'prediction': prediction}
 
+@app.post('/Gradient_Boosting_Predict')
+def GB_predict(data: sepssisfeatures):
+    df = pd.DataFrame([data.model_dump])
+    prediction = GB_pipeline.predict(df)
+    return {'prediction': prediction}
+
+
+@app.post('/LogReg_prediction')
+def logReg_predict(data: sepssisfeatures):
+    df = pd.DataFrame([data.model_dump])
+    prediction = LogReg_pipeline.predict(f)
+    return {'prediction': prediction}
 
     
