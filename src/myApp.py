@@ -38,7 +38,7 @@ from fastapi import FastAPI
 import joblib
 from pydantic import BaseModel
 
-from dev.Custom_Transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
+from Custom_Transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
 
 
 app = FastAPI()
@@ -54,7 +54,7 @@ class sepssisfeatures(BaseModel):
     BD2: float
     Age: int
     Insurance: int
-    Sepssis: object
+        
     
 
 
@@ -66,7 +66,7 @@ def MySepssisApi():
 
 GB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/GB_pipeline.joblib')
 LogReg_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/LogReg_pipeline.joblib')
-NB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/NB_pipeline.joblib')
+#NB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/NB_pipeline.joblib')
 XGB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/XGB_pipeline.joblib')
 encoder = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/encoder.joblib')
 
