@@ -38,6 +38,8 @@ from fastapi import FastAPI
 import joblib
 from pydantic import BaseModel
 
+from custom_transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
+
 
 app = FastAPI()
 
