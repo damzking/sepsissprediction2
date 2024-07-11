@@ -1,38 +1,5 @@
 import pandas as pd
 import numpy as np
-#from sklearn.base import BaseEstimator, TransformerMixin
-
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import ( 
-    LabelEncoder, 
-    RobustScaler, 
-)
-
-from imblearn.pipeline import Pipeline as ImbPipeline
-from imblearn.over_sampling import SMOTE
-from sklearn.compose import ColumnTransformer
-
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import ( 
-    GradientBoostingClassifier
-)
-
-
-from sklearn.naive_bayes import GaussianNB
-from xgboost import XGBClassifier
-from sklearn.linear_model import HuberRegressor
-
-from sklearn.metrics import (
-    accuracy_score, 
-    precision_score, 
-    recall_score, 
-    f1_score, 
-    roc_curve,
-    auc, 
-    confusion_matrix, 
-    classification_report
-)
 
 from fastapi import FastAPI
 import joblib
@@ -64,11 +31,10 @@ def MySepssisApi():
 
 
 
-GB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/GB_pipeline.joblib')
-LogReg_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/LogReg_pipeline.joblib')
-#NB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/NB_pipeline.joblib')
-XGB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/XGB_pipeline.joblib')
-encoder = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/encoder.joblib')
+GB_pipeline = joblib.load('/Users/mac/Documents/P5-Machine-Learning-API/models/GB_pipeline.joblib')
+LogReg_pipeline = joblib.load('/Users/mac/Documents/P5-Machine-Learning-API/models/LogReg_pipeline.joblib')
+XGB_pipeline = joblib.load('/Users/mac/Documents/P5-Machine-Learning-API/models/XGB_pipeline.joblib')
+encoder = joblib.load('/Users/mac/Documents/P5-Machine-Learning-API/models/encoder.joblib')
 
 @app.post('/XGBoost_prediction')
 def predict_sepssis(data: sepssisfeatures):
