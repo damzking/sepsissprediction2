@@ -79,6 +79,7 @@ def XGB_predict(data: sepssisfeatures):
     prediction = XGB_pipeline.predict(df)
     predictxgb = int(prediction[0])
     
+    
     return {'prediction': predictxgb}
 
 @app.post('/Gradient_Boosting_Predict')
