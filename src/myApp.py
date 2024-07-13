@@ -76,8 +76,12 @@ encoder = joblib.load('../models/encoder.joblib')
 def XGB_predict(data: sepssisfeatures):
     
     df = pd.DataFrame([data.model_dump()])
-    prediction = XGB_pipeline.predict(df)
-    predictxgb = int(prediction[0])
+    predxgb = XGB_pipeline.predict(df)
+    predxgb = int(predxgb[0])
+    
+    predictxgb = encoder.inverse_transform([predxgb])[0]
+    
+    probabxgb = XGB_pipeline.predict_proba(df)[0]
     
     
     return {'prediction': predictxgb}
@@ -86,8 +90,12 @@ def XGB_predict(data: sepssisfeatures):
 def GB_predict(data: sepssisfeatures):
     
     df = pd.DataFrame([data.model_dump])
-    prediction = GB_pipeline.predict(df)
-    predictgb = int(prediction[0])
+    predGB = GB_pipeline.predict(df)
+    
+    predGB = int(predGB[0])
+    predictgb = encoder.inverse_transform([predGB])[0]
+    probabgb = GB_pipeline.predict_proba(df)[0]
+    
     return {'prediction': predictgb}
 
 
@@ -96,9 +104,12 @@ def GB_predict(data: sepssisfeatures):
 def logReg_predict(data: sepssisfeatures):
 
     df = pd.DataFrame([data.model_dump])
-    prediction = LogReg_pipeline.predict(df)
-    predictlogreg = int(prediction[0])
+    predlr = LogReg_pipeline.predict(df)
+    predlr = int(predlr[0])
+    
+    predlogreg = encoder.inverse_transform([predlr])[0]
+    probablr = LogReg_pipeline.predict_proba(df)[0]
 
-    return {'prediction': prediction}
+    return {'prediction': predlogreg}
 
     
