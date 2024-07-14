@@ -1,15 +1,17 @@
-
-from fastapi import FastAPI
 import joblib
+import pandas as pd
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+import logging
 
-from Custom_Transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
-app = FastAPI()
-
-
-class sepssisfeatures(BaseModel):
+# Define your features class using Pydantic
+class SepsisFeatures(BaseModel):
     PRG: int
     PL: int
     PR: int
@@ -19,62 +21,56 @@ class sepssisfeatures(BaseModel):
     BD2: float
     Age: int
     Insurance: int
-    
-    
-        
-    
+    model_name: str
+
+# Initialize FastAPI app
+app = FastAPI()
 
 
 @app.get('/')
-def MySepssisApi():
-    return {'Message': 'Welcome to my Sepssis Prediction API'}
+async def SepssisAPI():
+    return {"message": "SepssisAPI"}
 
+# Load all models and the encoder
+try:
+    models = {
+        'GradientBoosting': joblib.load('../models/GB_pipeline.joblib'),
+        'LogisticRegression': joblib.load('../models/LogReg_pipeline.joblib'),
+        'SVM': joblib.load('../models/SVM_pipeline.joblib'),
+        'XGBoost': joblib.load('../models/XGB_pipeline.joblib')
+    }
+    encoder = joblib.load('../models/encoder.joblib')
 
+except Exception as e:
+    logger.error(f"Error loading models: {e}")
 
-GB_pipeline = joblib.load('../models/GB_pipeline.joblib')
-LogReg_pipeline = joblib.load('../models/LogReg_pipeline.joblib')
-SVM_pipeline = joblib.load('../models/SVM_pipeline.joblib')
-XGB_pipeline = joblib.load('../models/XGB_pipeline.joblib')
-encoder = joblib.load('../models/encoder.joblib')
-
-@app.post('/XGBoost_prediction')
-def XGB_predict(data: sepssisfeatures):
-    
-    df = pd.DataFrame([data.model_dump()])
-    predxgb = XGB_pipeline.predict(df)
-    predxgb = int(predxgb[0])
-    
-    predictxgb = encoder.inverse_transform([predxgb])[0]
-    
-    probabxgb = XGB_pipeline.predict_proba(df)[0]
+@app.post('/predict/{model_name}')
+def predict(model_name: str, data: SepsisFeatures):
     
     
-    return {'prediction': predictxgb}
-
-@app.post('/Gradient_Boosting_Predict')
-def GB_predict(data: sepssisfeatures):
+    # Validate model name
+    if model_name not in models:
+        raise HTTPException(status_code=400, detail="Model not found")
     
-    df = pd.DataFrame([data.model_dump])
-    predGB = GB_pipeline.predict(df)
+    else:    
+    # Convert input data to DataFrame
+        df = pd.DataFrame([data.model_dump()])
     
-    predGB = int(predGB[0])
-    predictgb = encoder.inverse_transform([predGB])[0]
-    probabgb = GB_pipeline.predict_proba(df)[0]
+    # Get the specified model
+        model = models[model_name]
     
-    return {'prediction': predictgb}
-
-
-
-@app.post('/LogReg_prediction')
-def logReg_predict(data: sepssisfeatures):
-
-    df = pd.DataFrame([data.model_dump])
-    predlr = LogReg_pipeline.predict(df)
-    predlr = int(predlr[0])
+    # Make prediction
+        pred = model.predict(df)
+        pred = int(pred[0])
     
-    predlogreg = encoder.inverse_transform([predlr])[0]
-    probablr = LogReg_pipeline.predict_proba(df)[0]
-
-    return {'prediction': predlogreg}
-
+    # Decode the prediction
+        decoded_pred = encoder.inverse_transform([pred])[0]
     
+    # Get probabilities if supported by the model
+        try:
+            probab = model.predict_proba(df)[0]
+        except AttributeError:
+            probab = "Probabilities not available for this model"
+
+    # Return prediction and probabilities
+    return {'model': model_name, 'prediction': decoded_pred, 'probabilities': probab}
