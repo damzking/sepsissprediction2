@@ -1,9 +1,6 @@
 /p5env
 /__pycache__
-<<<<<<< HEAD
-/
-/src/__pycache__
-=======
+
 
 venv/
 /__pycache__
@@ -14,10 +11,4 @@ src/__pycache__
 /src/__pycache__
 /dev/__pycache__
 
-<<<<<<< HEAD
-/src/__pycache__
-/dev/__pycache__
 
-=======
->>>>>>> 1136ce833b9de58e69c444f063bbb3b4db236803
->>>>>>> bfad61655b3fc56fe2e55140652c6edb60315f71
