@@ -11,7 +11,7 @@ from typing import Union
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Define your features class using Pydantic
+# Defining features class using Pydantic
 class SepsisFeatures(BaseModel):
     PRG: int
     PL: int
@@ -22,6 +22,8 @@ class SepsisFeatures(BaseModel):
     BD2: float
     Age: int
     Insurance: int
+    
+
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -55,7 +57,7 @@ except Exception as e:
     logger.error(f"Error loading models: {e}")
 
 @app.post('/predict/{model_name}')
-def predict(model_name: str, data: SepsisFeatures):
+async def predict(model_name: str, data: SepsisFeatures):
     try:
         # Validate model name
         if model_name not in models:
@@ -77,12 +79,12 @@ def predict(model_name: str, data: SepsisFeatures):
         # Get probabilities if supported by the model
         try:
             probab = model.predict_proba(df)[0].tolist()[0]  
-            #probab = [round(p, 2) for p in probab]
+            #probab2 = [round(p, 2) for p in probab]
         except AttributeError:
-            probab = "Probabilities not available for this model"
+            probab = "Probability not available for this model"
 
         # Return prediction and probabilities
-        return {'model': model_name, 'prediction': decoded_pred, 'probabilities': probab}
+        return {'model': model_name, 'prediction': decoded_pred, 'probability': probab}
     except HTTPException as e:
         logger.error(f"HTTP Exception: {e.detail}")
         raise e
