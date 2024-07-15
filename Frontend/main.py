@@ -18,15 +18,18 @@ def show_form():
     model_name = st.session_state['model_name']
     
     with st.form('enter_features'):
-        PRG = st.number_input("PRG-Plasma glucose level", min_value=0, max_value=100)
-        PL = st.number_input("PL-Blood Work Result-1 (mu U/ml)", min_value=0, max_value=500)
-        PR = st.number_input("PR-Blood Pressure (mm Hg)", min_value=0, max_value=500)
-        SK = st.number_input("SK-Blood Work Result-2 (mm)", min_value=0, max_value=500)
-        TS = st.number_input("TS-Blood Work Result-3 (mu U/ml)", min_value=0, max_value=500)
-        M11 = st.number_input('M11-Body mass index (weight in kg/(height in m)^2)', min_value=0, max_value=200)
-        BD2 = st.number_input('BD2-Blood Work Result-4 (mu U/ml)', min_value=0, max_value=100)
-        Age = st.number_input("Age-patients age (years)", min_value=0, max_value=150)
-        Insurance = st.number_input("A patient holds a valid insurance card", min_value=0, max_value=1)
+        col1,col2 = st.columns(2)
+        with col1:
+            PRG = st.number_input("PRG-Plasma glucose level", min_value=0, max_value=100)
+            PL = st.number_input("PL-Blood Work Result-1 (mu U/ml)", min_value=0, max_value=500)
+            PR = st.number_input("PR-Blood Pressure (mm Hg)", min_value=0, max_value=500)
+            SK = st.number_input("SK-Blood Work Result-2 (mm)", min_value=0, max_value=500)
+        with col2:
+            TS = st.number_input("TS-Blood Work Result-3 (mu U/ml)", min_value=0, max_value=500)
+            M11 = st.number_input('M11-Body mass index (weight in kg/(height in m)^2)', min_value=0, max_value=200)
+            BD2 = st.number_input('BD2-Blood Work Result-4 (mu U/ml)', min_value=0, max_value=100)
+            Age = st.number_input("Age-patients age (years)", min_value=0, max_value=150)
+            Insurance = st.number_input("A patient holds a valid insurance card", min_value=0, max_value=1)
         
         if st.form_submit_button('Predict Sepsis Status'):
             data = {
