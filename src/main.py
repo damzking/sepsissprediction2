@@ -1,89 +1,49 @@
-import pandas as pd
-import numpy as np
-from sklearn.base import BaseEstimator, TransformerMixin
+import streamlit as st
+import requests
 
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import ( 
-    LabelEncoder, 
-    RobustScaler, 
+#backend_url = http://127.0.0.1:8000
+
+st.set_page_config(
+    page_title='Prediction',
+    layout='wide',
+    page_icon='expanded'
+
 )
 
-from imblearn.pipeline import Pipeline as ImbPipeline
-from imblearn.over_sampling import SMOTE
-from sklearn.compose import ColumnTransformer
+def show_form():
+    st.title('SEPSSIS Prediction')
+    st.subheader('Please enter your Sepssis features')
+    with st.form(key = 'sepssis'):
+        PRG = st.number_input('PRG', min_value=0.00, max_value=100.0)
+        PL = st.number_input('PL', min_value=0.00, max_value=100.0)
+        PR = st.number_input('PR', min_value=0.00, max_value=100.0)
+        SK = st.number_input('SK', min_value=0.00, max_value=100.0)
+        TS = st.number_input('TS', min_value=0.00, max_value=100.0)
+        M11 = st.number_input('M11', min_value=0.0, max_value=100.0)
+        BD2 = st.number_input('BD2', min_value=0.0, max_value=100.0)
+        AGE = st.number_input('Age', min_value=0.0, max_value=100.0)
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import ( 
-    GradientBoostingClassifier
-)
+        if st.form_submit_button('Predict Sepssis Result'):
+            input_data= {
+                'PRG': PRG,
+                'PL': PL,
+                'PR': PR,
+                'SK': SK,
+                'TS': TS,
+                'M11': M11,
+                'BD2': BD2,
+                'AGE': AGE
+            }
+            st.write(input_data)
 
+        #response = requests.post(f'{backend_url}/XGBoost_prediction', json=input_data)
 
-from sklearn.naive_bayes import GaussianNB
-from xgboost import XGBClassifier
-from sklearn.linear_model import HuberRegressor
+        #Display the prediction
+        #if response.status_code == 200:
+            #prediction = response.json()['prediction']
+            #st.success(f'The prediction is: {prediction}')
+        #else:
+            #st.error('An error occurred while making the prediction')
 
-from sklearn.metrics import (
-    accuracy_score, 
-    precision_score, 
-    recall_score, 
-    f1_score, 
-    roc_curve,
-    auc, 
-    confusion_matrix, 
-    classification_report
-)
-
-from fastapi import FastAPI
-import joblib
-from pydantic import BaseModel
-
-#from custom_transformers import LogTransformer, SqrtTransformer, BoxCoxTransformer
-
-
-app = FastAPI()
-
-
-class sepssisfeatures(BaseModel):
-    PRG: int
-    PL: int
-    PR: int
-    SK: int
-    TS: int
-    M11: float
-    BD2: float
-    Age: int
-    Insurance: int
-    Sepssis: object
-    
-
-# Logarithmic Transformer
-#class LogTransformer(BaseEstimator, TransformerMixin):
-#    def fit(self, X, y=None):
-#        return self
-    
-#    def transform(self, X):
-#        return np.log1p(X) 
-
-
-@app.get('/')
-def MySepssisApi():
-    return {'Message': 'Welcome to my Sepssis Prediction API'}
-
-
-
-GB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/GB_pipeline.joblib')
-LogReg_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/LogReg_pipeline.joblib')
-RF_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/RF_pipeline.joblib')
-XGB_pipeline = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/XGB_pipeline.joblib')
-encoder = joblib.load('C:/Users/user/Documents/LP5-ML-API/P5-Machine-Learning-API/models/encoder.joblib')
-
-@app.post('/XGBoost_prediction')
-def predict_sepssis(data: sepssisfeatures):
-    
-    df = pd.DataFrame([data.model_dump()])
-    prediction = XGB_pipeline.predict(df)
-    return {'prediction': prediction}
-
-
-    
+if __name__ == '__main__':
+    show_form()
