@@ -1,13 +1,13 @@
-version: '3'
+version: "4"
 services:
   myapp:
     build:
-      context: './src'
+      context: "./src"
     ports:
-      - '80:80'
+      - "8000:8000"
   client:
     build:
-      context: './Frontend'
+      context: "./Frontend"
     ports:
-      - '3000:8501'    
+      - "3000:8501"    
     

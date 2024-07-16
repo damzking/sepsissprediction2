@@ -78,8 +78,10 @@ async def predict(model_name: str, data: SepsisFeatures):
 
         # Get probabilities if supported by the model
         try:
+            #if decoded_pred == 'Positive':
             probab = model.predict_proba(df)[0].tolist()[0]  
-            #probab2 = [round(p, 2) for p in probab]
+            #else:
+            #    probab = model.predict_proba(df)[0].tolist()[1]
         except AttributeError:
             probab = "Probability not available for this model"
 
