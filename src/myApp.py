@@ -46,12 +46,12 @@ models = {}
 encoder = None
 try:
     models = {
-        'GradientBoosting': joblib.load('../models/GB_pipeline.joblib'),
-        'LogisticRegression': joblib.load('../models/LogReg_pipeline.joblib'),
-        'SVM': joblib.load('../models/SVM_pipeline.joblib'),
-        'XGBoost': joblib.load('../models/XGB_pipeline.joblib')
+        'GradientBoosting': joblib.load('models/GB_pipeline.joblib'),
+        'LogisticRegression': joblib.load('models/LogReg_pipeline.joblib'),
+        'SVM': joblib.load('models/SVM_pipeline.joblib'),
+        'XGBoost': joblib.load('models/XGB_pipeline.joblib')
     }
-    encoder = joblib.load('../models/encoder.joblib')
+    encoder = joblib.load('models/encoder.joblib')
     logger.info("Models and encoder loaded successfully.")
 except Exception as e:
     logger.error(f"Error loading models: {e}")
