@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import logging
-from typing import Union  
+from typing import Union
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

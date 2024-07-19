@@ -1,7 +1,10 @@
+FROM python:3.12.3
+
 FROM python:3.9.6
 
 WORKDIR /app
 
+#COPY requirements.txt /tmp/requirements.txt
 
 RUN apt-get update && apt-get install -y curl \
     && curl https://sh.rustup.rs -sSf | sh -s -- -y \
@@ -17,6 +20,7 @@ RUN python -m pip install --upgrade pip && python -m pip install --timeout 300 -
 
 COPY . /app
 
+#WORKDIR /app
 
 EXPOSE 3000
 
