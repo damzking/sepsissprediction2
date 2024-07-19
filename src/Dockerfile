@@ -1,5 +1,3 @@
-FROM python:3.12.3
-
 FROM python:3.9.6
 
 WORKDIR /app
