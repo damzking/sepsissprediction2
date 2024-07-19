@@ -1,0 +1,12 @@
+version: "4"
+services:
+  myapp:
+    build:
+      context: "./src"
+    ports:
+      - "8000:8000"
+  client:
+    build:
+      context: "./Frontend"
+    ports:
+      - "3000:8501" 

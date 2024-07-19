@@ -7,7 +7,6 @@ st.set_page_config(
     page_title="Sepsis Prediction",
     layout="wide",
     initial_sidebar_state="expanded",
-    page_icon="https://example.com/favicon.ico",
 )
 
 def show_form():
@@ -48,9 +47,9 @@ def show_form():
             if response.status_code == 200:
                 response_data = response.json()
                 prediction = response_data['prediction']
-                probabilities = response_data.get('probabilities', 'N/A')
+                probabilities = response_data.get('probability')
                 st.success(f'The predicted Sepsis status is: {prediction}')
-                st.write(f"Probabilities: {probabilities}")
+                st.write(f"Probabilities: {probabilities*100:.1f}%")
             else:
                 st.error(f"Error: {response.json().get('detail', 'Unknown error occurred')}")
                 
