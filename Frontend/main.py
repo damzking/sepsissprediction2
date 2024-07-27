@@ -11,6 +11,11 @@ st.set_page_config(
 
 st.title("Sepsis Prediction Features")
 st.write('- Sepsis: Positive if a patient in ICU will develop sepsis, and Negative otherwise')
+if 'prediction' not in st.session_state:
+    st.session_state['prediction'] = None
+if 'probability' not in st.session_state:
+    st.session_state['probability'] = 'N/A'
+
 col1, col2 = st.columns(2)
 with col1:
     st.selectbox('Select Model', options=['GradientBoosting', 'LogisticRegression', 'SVM', 'XGBoost'], key='model_name')
