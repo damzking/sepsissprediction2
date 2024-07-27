@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: "./src"  # This should point to the directory containing your backend Dockerfile
+      dockerfile: Dockerfile  # Make sure your Dockerfile is named correctly
+    ports:
+      - "8000:8000"  # Map the host port to the container port
+    volumes:
+      - ./src:/app  # Mount the dev directory to /app in the container
+
+  frontend:
+    build:
+      context: "./frontend"  # Path to the frontend directory
+      dockerfile: Dockerfile  # Ensure the Dockerfile is correctly named
+    ports:
+      - "8501:8501"  # Map the Streamlit port
+    volumes:
+      - ./frontend:/app  # Mount the frontend directory to /app in the container
