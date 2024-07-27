@@ -20,6 +20,6 @@ COPY . /app
 
 #WORKDIR /app
 
-EXPOSE 3000
+EXPOSE 8501
 
 CMD ["streamlit", "run", "main.py", "--server.port=8501"]

@@ -3,11 +3,15 @@ services:
   myapp:
     build:
       context: "./src"
+    image: sepsis_myapp_image
+    container_name: sepsis_myapp_container
     ports:
       - "8000:8000"
   client:
     build:
       context: "./Frontend"
+    image: sepsis_client_image
+    container_name: sepsis_client_container
     ports:
-      - "3000:8501"    
+      - "8501:8501"    
     
