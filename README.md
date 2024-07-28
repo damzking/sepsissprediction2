@@ -1,5 +1,4 @@
 # P5-Machine-Learning-API
-# Sepsis-Prediction-with-Supervised-Machine-Learning
 ![The image should showcase the integration of high ](https://github.com/user-attachments/assets/81cdea3a-56a8-4c44-9c1b-2878accb9506)
 
 
