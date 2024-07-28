@@ -21,21 +21,21 @@ app = FastAPI()
 
 # Load the models and encoder with error handling
 try:
-    decision_tree = joblib.load("./models/Decision_Tree_tunedb_pipeline.joblib")
+    decision_tree = joblib.load("./Models/Decision_Tree_tunedb_pipeline.joblib")
     print("Decision Tree model loaded successfully.")
 except Exception as e:
     print(f"Error loading Decision Tree model: {e}")
     decision_tree = None
 
 try:
-    logistic_regression = joblib.load("./models/Logistic_Regression_tunedb_pipeline.joblib")
+    logistic_regression = joblib.load("./Models/Logistic_Regression_tunedb_pipeline.joblib")
     print("Logistic Regression model loaded successfully.")
 except Exception as e:
     print(f"Error loading Logistic Regression model: {e}")
     logistic_regression = None
 
 try:
-    encoder = joblib.load("./models/encoder.joblib")
+    encoder = joblib.load("./Models/Label_encoder.joblib")
     print("Encoder loaded successfully.")
 except Exception as e:
     print(f"Error loading encoder: {e}")
