@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 
+# API endpoint URL
 api_url = 'http://127.0.0.1:8000'
 
 st.set_page_config(
@@ -9,19 +10,23 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Page title
 st.title("Sepsis Prediction Features")
 st.write('- Sepsis: Positive if a patient in ICU will develop sepsis, and Negative otherwise')
+
+# Initialize session state for prediction and probability if they don't exist
 if 'prediction' not in st.session_state:
     st.session_state['prediction'] = None
 if 'probability' not in st.session_state:
     st.session_state['probability'] = 'N/A'
 
 col1, col2 = st.columns(2)
+# Select model type
 with col1:
     st.selectbox('Select Model', options=['GradientBoosting', 'LogisticRegression', 'SVM', 'XGBoost'], key='model_name')
     model_name = st.session_state['model_name']
 
-
+# Function to display the form for feature input
 def show_form():
     with st.form('enter_features'):
         col1, col2, col3 = st.columns(3)
@@ -39,6 +44,7 @@ def show_form():
             st.number_input("A patient holds a valid insurance card", min_value=0, max_value=1, key='Insurance')
         st.form_submit_button(':violet[Predict Sepsis Status]', on_click=make_prediction)
         
+# Function to make prediction using the API
 def make_prediction():
     data = {
         'PRG': st.session_state['PRG'],
@@ -51,8 +57,10 @@ def make_prediction():
         'Age': st.session_state['Age'],
         'Insurance': st.session_state['Insurance']
     }
+    # Send POST request to the API
     response = requests.post(f'{api_url}/predict/{model_name}', json=data)
     
+    # Parse response data
     response_data = response.json()
     st.session_state['prediction'] = response_data['prediction']
     st.session_state['probability'] = response_data.get('probability', 'N/A')
@@ -60,10 +68,11 @@ def make_prediction():
     return 
 
 
-
+# Display the form
 if __name__ == "__main__":  
     show_form()
     
+     # Display the prediction results
     final_prediction = st.session_state['prediction']
     if not final_prediction:
         st.write('### Prediction show here')

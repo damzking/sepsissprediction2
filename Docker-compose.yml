@@ -1,4 +1,4 @@
-version: "4"
+version: "4"  # Ensure compatibility with your Docker version
 services:
   myapp:
     build:
