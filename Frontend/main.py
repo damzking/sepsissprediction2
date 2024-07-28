@@ -51,8 +51,6 @@ def make_prediction():
     response_data = response.json()
     st.session_state['prediction'] = response_data['prediction']
     st.session_state['probability'] = response_data.get('probability', 'N/A')
-            
-    return 
 
 
 
