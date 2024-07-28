@@ -7,6 +7,25 @@ from fastapi.middleware.cors import CORSMiddleware
 import logging
 from typing import Union
 
+# Additional information to include in app description
+Util_info = """
+Input:
+- PRG: Plasma Glucose
+- PL: Blood Work Result-1 (mu U/ml)
+- PR: Blood Pressure (mm Hg)
+- SK: Blood Work Result-2 (mm)
+- TS: Blood Work Result-3 (mu U/ml)
+- M11: Body Mass Index (weight in kg/(height in m)^2)
+- BD2: Blood Work Result-4 (mu U/ml)
+- Age: Patient's Age (years)
+- Insurance: If a patient holds a valid insurance card
+
+Output:
+- Predicted Class = 0 (Negative) or 1 (positive)
+- Prediction = Probability of predicted class
+- Result = Positive if a patient in ICU will develop sepsis, Negative if a patient in ICU will not develop sepsis
+"""
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -26,7 +45,10 @@ class SepsisFeatures(BaseModel):
 
 
 # Initialize FastAPI app
-app = FastAPI()
+app = FastAPI(
+        title='Sepsis Prediction App',
+    description= Util_info
+)
 
 # Add CORS middleware if needed
 app.add_middleware(
