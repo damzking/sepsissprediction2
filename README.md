@@ -133,7 +133,7 @@ Here is a [tutorial](https://fastapi.tiangolo.com/tutorial/) for fastAPI
 
   | Name                                            | LinkedIn                                                                                                                                                                                                                                               | Medium Article |
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| ALUKO OLUWADAMILOLA | [ALUKO OLUWADAMILOLA](https://www.linkedin.com/in/oluwadamilola-aluko/) |[Sepsis Prediction Web App: FastAPI Development and Docker Containerization](https://medium.com/@aminuoluwarotimi/building-a-machine-learning-api-with-python-fastapi-and-docker-81ec608b9263)|
+| ALUKO OLUWADAMILOLA | [ALUKO OLUWADAMILOLA](https://www.linkedin.com/in/oluwadamilola-aluko/) |[Sepsis Prediction Web App: FastAPI Development and Docker Containerization](|
 
 
 ## Model Training and Saving ⏳
