@@ -133,14 +133,16 @@ Here is a [tutorial](https://fastapi.tiangolo.com/tutorial/) for fastAPI
 
   | Name                                            | LinkedIn                                                                                                                                                                                                                                               | Medium Article |
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| ALUKO OLUWADAMILOLA | [ALUKO OLUWADAMILOLA](https://www.linkedin.com/in/oluwadamilola-aluko/) |[Sepsis Prediction Web App: FastAPI Development and Docker Containerization](|
+| ALUKO OLUWADAMILOLA | [ALUKO OLUWADAMILOLA](https://www.linkedin.com/in/oluwadamilola-aluko/) |[Sepsis Prediction Web App: FastAPI Development and ]MEDIUM LINK (|https://medium.com/@alukodami/building-and-deploying-a-sepsis-prediction-model-with-fastapi-6bff255577c9)
+DOCKER LINKS (BACKEND) https://hub.docker.com/layers/dami001/fdocker/src/images/sha256:f7811ebd308d3d9a06673c72626b5b9832618cb6d71ef7f9ce421523c19b0f0d?uuid=3ACFA2F3-C9D7-4F35-B8B2-5AB4B5EBEB8B
+(FRONT END)  https://hub.docker.com/layers/dami001/fdocker/frontend/images/sha256-daeb6e6949da5e7b81d8fcb847b5351b3c03d95f33e4d4b27a083ebcbed5fd75?context=repo
 
 
 ## Model Training and Saving ⏳
 
 The Xgboost, Logistic Regression, SVM and Gradient boost model was trained using the Telecommunication Customer Churn as shown in this GitHub repository: [P5-Building-Machine-Learning-APIs-With-FastAPI
 ](https://github.com/bamzyyyy/P5-Building-Machine-Learning-APIs-With-FastAPI).
-
+https://github.com/damzking/sepsissprediction2.git
 ## Acknowledgments 🙏
 
 I would like to express my gratitude to the [Azubi Africa Data Analyst Program](https://www.azubiafrica.org/data-analytics) for their support and for offering valuable projects as part of this program. Not forgeting my scrum masters on this project [Rachel Appiah-Kubi](https://www.linkedin.com/in/racheal-appiah-kubi/) & [Emmanuel Koupoh](https://github.com/eaedk)
